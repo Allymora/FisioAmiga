@@ -1,0 +1,67 @@
+{% extends "cliente_view/layout.html" %}
+
+
+{% load widget_tweaks %}
+{% block title %}
+    Cadastro | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Lista de Agendas</h1>
+        </div>
+        
+        {% if messages %} 
+        <ul class="messages">
+        {% for message in messages %}
+            <div class="alert alert-danger text-center" role="alert">
+                {{ message }}
+            </div>
+                            <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Terapia</th>
+                <th>Dia</th>
+                <th>Horario</th>
+                <th>Confirmo?</th>
+    
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in form %}
+            <tr>
+                <td>{{consulta.pk}}</td>
+                <td>{{consulta.user}}</td>
+                <td>{{consulta.agenda.terapia}}</td>
+                <td>{{consulta.agenda.dia|date:"d/m/Y"}}</td>
+                <td>{{consulta.agenda.get_horario_display}}</td>
+                <td>
+                  
+                    <a class="text-primary" style="padding-left: 10px; text-decoration: none;">
+                        {% if consulta.status == "Aceptado"%}
+                        <i class="fa-sharp fa-solid fa-circle-check"></i>
+                        {%else%}
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        {%endif%}
+                        
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+

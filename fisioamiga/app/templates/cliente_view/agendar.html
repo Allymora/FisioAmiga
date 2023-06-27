@@ -1,0 +1,78 @@
+{% extends "cliente_view/layout.html" %}
+
+
+{% load widget_tweaks %}
+{% block title %}
+Agendar | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="page-header">
+      <h1>Agendar Consulta</h1>
+    </div>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tags}}'>
+        {{ message }}
+        </div>
+      {% endfor %}
+  
+
+    <form action="{% url 'cliente' %}" class="form-horizontal" method="post">
+      {% csrf_token %}
+      <div class="form-group{% if form.user.errors %} has-error{% endif %}">
+        <label for="{{ form.user.auto_id }}" class="col-md-3 control-label">
+          {{ form.user.label }}</label>
+        <div class="col-md-9">
+          {% render_field form.user class="form-control" %}
+
+          {% for error in form.user.errors %}
+          <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-group{% if form.terapia.errors %} has-error{% endif %}">
+        <label for="{{ form.terapia.auto_id }}" class="col-md-3 control-label">
+          {{ form.terapia.label }}</label>
+        <div class="col-md-9">
+          {% render_field form.terapia class="form-control" %}
+
+          {% for error in form.terapia.errors %}
+          <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-group{% if form.dia.errors %} has-error{% endif %}">
+        <label for="{{ form.dia.auto_ud }}" class="col-md-3 control-label">
+          {{ form.dia.label }}</label>
+        <div class="col-md-9">
+          {% render_field form.dia type="date" class="form-control" placeholder="01/01/2022" %}
+          {% for error in form.dia.errors %}
+          <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group{% if form.horario.errors %} has-error{% endif %}">
+        <label for="{{ form.horario.auto_id }}" class="col-md-3 control-label">
+          {{ form.horario.label }}</label>
+        <div class="col-md-9">
+          {% render_field form.horario class="form-control" %}
+
+          {% for error in form.horario.errors %}
+          <span class="help-block">{{ error }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+          <button type="submit" class="btn btn-primary">Añadir</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

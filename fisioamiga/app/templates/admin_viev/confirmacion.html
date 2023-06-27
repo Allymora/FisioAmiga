@@ -1,0 +1,45 @@
+{% extends 'admin_viev/layout.html' %}
+{% load static %}
+{% block title %}
+Data Tables
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block main %}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title m-b-0">Tasks</h5>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in user_hash%}
+            <tr>
+                <td>{{i.user}}</td>
+                <td>{{i.agenda.dia |date:"d/m/Y"}}</td>
+                <td>{{ i.agenda.get_horario_display }}</td>
+                {% if i.status == "Aceptado" %}
+                    <td class="text-success">{{i.status}}</td>
+                {% elif i.status == "Pendiente" %}
+                    <td class="text-warning">{{i.status}}</td>
+                {% else %}
+                    <td class="text-danger">{{i.status}}</td>
+                {% endif%}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

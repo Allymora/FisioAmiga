@@ -1,0 +1,10 @@
+asgiref==3.4.1
+Django==4.0.1
+django-cpf-cnpj==1.0.0
+django-extensions==3.1.5
+django-werkzeug==1.0.0
+django-widget-tweaks==1.4.9
+MarkupSafe==2.1.1
+sqlparse==0.4.2
+tzdata==2022.7
+Werkzeug==2.2.2

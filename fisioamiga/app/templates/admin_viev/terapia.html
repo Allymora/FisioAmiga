@@ -1,0 +1,105 @@
+{% extends 'admin_viev/layout.html' %}
+{% load static %}
+{% block title %}
+Data Tables
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block main %}
+
+
+
+<div class="card">
+    {% if page == "actualizar"%}
+        <form  action="{% url 'terapia_actualizar' id %}" method="post" class="form-horizontal">
+            {% csrf_token %}
+            <div class="card-body">
+                <h4 class="card-title">Personal Info</h4>
+                
+            
+                    <div class="form-group row {% if form.name.errors %} has-error{% endif %}">
+                        <label for="{{ form.name.auto_id }}" class="col-sm-3 text-right control-label col-form-label">Nombre de la terapia</label>
+                        <div class="col-md-9">
+                        {% render_field form.name class="form-control" %}
+                
+                        {% for error in form.name.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    </div>
+            </div>
+            <div class="border-top">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    {%else%}
+        <form  action="{% url 'terapia' %}" method="post" class="form-horizontal">
+            {% csrf_token %}
+            <div class="card-body">
+                <h4 class="card-title">Personal Info</h4>
+                
+            
+                    <div class="form-group row {% if form.name.errors %} has-error{% endif %}">
+                        <label for="{{ form.name.auto_id }}" class="col-sm-3 text-right control-label col-form-label">Nombre de la terapia</label>
+                        <div class="col-md-9">
+                        {% render_field form.name class="form-control" %}
+                
+                        {% for error in form.name.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    </div>
+            </div>
+            <div class="border-top">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    {%endif%}
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0">Terapias</h5>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in terapia_object%}
+                        <tr>
+                            <td>{{i.name}}</td>
+                            <td> 
+                                <a href="{% url 'terapia_actualizar' i.id %}"
+                                    class="text-primary" style="padding-left: 10px; text-decoration: none;">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                
+                                <a href="{% url 'terapia_delete' i.id %}"
+                                    class="mr-1 text-danger" style="padding-left: 10px; text-decoration: none;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                      
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
